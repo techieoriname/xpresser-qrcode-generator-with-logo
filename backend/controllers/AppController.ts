@@ -1,18 +1,28 @@
-import {Controller} from "xpresser/types/http";
+import {ControllerClass, getInstance} from "xpresser";
+import {Http} from "xpresser/types/http";
 
+import qrcodeWithLogo from "../utils/qrcodeWithLogo";
 
-const AppController = <Controller.Object>{
+const $ = getInstance()
+
+/**
+ * AppController
+ */
+class AppController extends ControllerClass {
+
     /**
-     * Controller name.
-     * @type {string}
+     * Example controller action.
+     * @param {Http} http
      */
-    name: 'AppController',
+    async index(http: Http): Promise<Http.Response> {
+        const data = "https://paulandchristies.com"
+        await qrcodeWithLogo(data, `${$.path.storage("logo.png")}`, { width: 450 }, "PNG", `${$.path.storage(`${$.helpers.randomInteger(111,999)}_qr.png`)}`)
+        // await QRLogo.generateQRWithLogo()
+        return http.send({
+            msg: 'Techie Oriname'
+        })
+    }
 
-    /**
-     * Index Method for "/"
-     * @returns {string}
-     */
-    index: (): string => "<h1>My xpresser Typescript lite project</h1>",
-};
+}
 
-module.exports = AppController;
+export = AppController;

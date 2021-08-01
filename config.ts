@@ -4,7 +4,7 @@
  */
 export = {
     // name of app
-    name: 'Xpresser-Simple-Typescript-App',
+    name: 'QRCode with logo',
 
     // app environment
     env: 'development',

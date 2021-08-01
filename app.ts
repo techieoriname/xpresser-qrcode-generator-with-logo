@@ -10,11 +10,13 @@ import xpresser = require("xpresser");
 import config = require("./config");
 
 // Initialize Xpresser
-const $ = xpresser.init(config, {exposeDollarSign: false})
+const $ = xpresser.init(config, {exposeDollarSign: true})
 
-// Initialize Typescript
-$.initializeTypescript(__filename)
-
+$.initializeTypescript(__filename, isNode => {
+    if (isNode) {
+        $.config.set('paths.storage', `${isNode.ts.baseFolder}/storage/`)
+    }
+})
 
 // Boot Xpresser
 $.boot();
